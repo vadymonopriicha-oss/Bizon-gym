@@ -42,3 +42,26 @@ CREATE TABLE IF NOT EXISTS entitlements(
  granted_at TIMESTAMPTZ DEFAULT now(),
  PRIMARY KEY(user_id,program_id)
 );
+CREATE TABLE IF NOT EXISTS workouts(
+  id BIGSERIAL PRIMARY KEY,
+  program_id BIGINT NOT NULL REFERENCES programs(id) ON DELETE CASCADE,
+  week INTEGER NOT NULL DEFAULT 1,
+  day INTEGER NOT NULL DEFAULT 1,
+  title TEXT NOT NULL,
+  description TEXT,
+  created_at TIMESTAMPTZ DEFAULT now()
+);
+
+CREATE TABLE IF NOT EXISTS exercises(
+  id BIGSERIAL PRIMARY KEY,
+  workout_id BIGINT NOT NULL REFERENCES workouts(id) ON DELETE CASCADE,
+  name TEXT NOT NULL,
+  sets INTEGER,
+  reps TEXT,
+  weight TEXT,
+  rest TEXT,
+  video_url TEXT,
+  notes TEXT,
+  position INTEGER NOT NULL DEFAULT 0,
+  created_at TIMESTAMPTZ DEFAULT now()
+);
