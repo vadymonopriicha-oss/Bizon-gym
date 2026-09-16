@@ -3,10 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Bizon GYM</title>
 
 <style>
-*{box-sizing:border-box}
+
+*{
+  box-sizing:border-box;
+}
 
 body{
   margin:0;
@@ -28,7 +32,7 @@ header{
 }
 
 .logo{
-  font-size:25px;
+  font-size:28px;
   font-weight:900;
   color:#ff7a00;
 }
@@ -36,7 +40,7 @@ header{
 .container{
   max-width:1100px;
   margin:auto;
-  padding:25px 16px 50px;
+  padding:25px 16px 60px;
 }
 
 .hero{
@@ -44,7 +48,7 @@ header{
 }
 
 .hero h1{
-  font-size:38px;
+  font-size:40px;
   margin:0 0 10px;
 }
 
@@ -54,7 +58,7 @@ header{
 
 .grid{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
   gap:18px;
 }
 
@@ -80,10 +84,11 @@ header{
 button{
   border:0;
   border-radius:10px;
-  padding:12px 17px;
+  padding:12px 18px;
   background:#ff7a00;
   color:#fff;
   font-weight:bold;
+  font-size:15px;
   cursor:pointer;
 }
 
@@ -91,19 +96,21 @@ button:hover{
   opacity:.9;
 }
 
-button.danger{
-  background:#d62828;
-}
-
 button.secondary{
   background:#292929;
 }
 
-input,textarea,select{
+button.danger{
+  background:#d62828;
+}
+
+input,
+textarea,
+select{
   width:100%;
-  padding:13px;
-  margin:7px 0 12px;
-  border-radius:9px;
+  padding:14px;
+  margin:7px 0 13px;
+  border-radius:10px;
   border:1px solid #333;
   background:#0e0e0e;
   color:#fff;
@@ -115,6 +122,10 @@ textarea{
   resize:vertical;
 }
 
+select{
+  appearance:auto;
+}
+
 .admin{
   border:1px solid #ff7a00;
   background:#111;
@@ -124,57 +135,14 @@ textarea{
   color:#ff7a00;
 }
 
-.admin-program{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:15px;
-  border-top:1px solid #292929;
-  padding:15px 0;
-}
-
-.admin-program:first-child{
-  border-top:0;
-}
-
-.admin-info{
-  flex:1;
-}
-
 .badge{
   display:inline-block;
   background:#ff7a00;
   color:#fff;
-  padding:5px 9px;
+  padding:5px 10px;
   border-radius:20px;
   font-size:12px;
   font-weight:bold;
-}
-
-.modal{
-  display:none;
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.8);
-  align-items:center;
-  justify-content:center;
-  z-index:100;
-  padding:20px;
-}
-
-.box{
-  width:100%;
-  max-width:450px;
-  background:#151515;
-  border:1px solid #333;
-  border-radius:18px;
-  padding:25px;
-}
-
-.close{
-  float:right;
-  background:#292929;
-  padding:7px 11px;
 }
 
 .section-title{
@@ -188,96 +156,277 @@ textarea{
   color:#888;
 }
 
+.workout{
+  background:#171717;
+  border:1px solid #333;
+  border-radius:14px;
+  padding:18px;
+  margin-top:15px;
+}
+
+.workout-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:15px;
+}
+
+.workout-title{
+  font-size:20px;
+  font-weight:bold;
+}
+
+.week{
+  color:#ff7a00;
+  font-weight:bold;
+  margin-bottom:5px;
+}
+
+.exercise{
+  background:#0f0f0f;
+  border:1px solid #292929;
+  border-radius:12px;
+  padding:15px;
+  margin-top:10px;
+}
+
+.exercise-name{
+  font-size:18px;
+  font-weight:bold;
+}
+
+.exercise-data{
+  color:#aaa;
+  margin-top:7px;
+  line-height:1.6;
+}
+
+.admin-program{
+  border-top:1px solid #292929;
+  padding:18px 0;
+}
+
+.admin-program:first-child{
+  border-top:0;
+}
+
+.admin-program-title{
+  font-size:20px;
+  font-weight:bold;
+}
+
+.admin-actions{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-top:12px;
+}
+
+.workout-actions{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-top:12px;
+}
+
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.82);
+  align-items:center;
+  justify-content:center;
+  z-index:100;
+  padding:20px;
+  overflow:auto;
+}
+
+.box{
+  width:100%;
+  max-width:500px;
+  background:#151515;
+  border:1px solid #333;
+  border-radius:18px;
+  padding:25px;
+}
+
+.close{
+  float:right;
+  background:#292929;
+  padding:7px 11px;
+}
+
+.modal h2{
+  margin-top:5px;
+  color:#ff7a00;
+}
+
+.video{
+  display:inline-block;
+  margin-top:10px;
+  color:#ff7a00;
+}
+
 @media(max-width:600px){
+
+  .logo{
+    font-size:25px;
+  }
+
   .hero h1{
     font-size:30px;
   }
 
-  .admin-program{
+  .workout-header{
     flex-direction:column;
-    align-items:stretch;
   }
 
-  .admin-program button{
+  .admin-actions,
+  .workout-actions{
+    flex-direction:column;
+  }
+
+  .admin-actions button,
+  .workout-actions button{
     width:100%;
   }
+
 }
+
 </style>
 </head>
+
 
 <body>
 
 <header>
-  <div class="logo">🦬 BIZON GYM</div>
-  <button onclick="openLogin()">Войти</button>
+
+  <div class="logo">
+    🦬 BIZON GYM
+  </div>
+
+  <button onclick="openLogin()">
+    Войти
+  </button>
+
 </header>
+
 
 <div class="container">
 
   <section class="hero">
-    <h1>Тренируйся сильнее.</h1>
+
+    <h1>
+      Тренируйся сильнее.
+    </h1>
+
     <p class="muted">
       Программы тренировок Bizon GYM
     </p>
+
   </section>
 
-  <h2 class="section-title">🏋️ Программы</h2>
+
+  <h2 class="section-title">
+    🏋️ Программы
+  </h2>
+
 
   <div id="programs" class="grid">
-    <div class="empty">Загрузка...</div>
+
+    <div class="empty">
+      Загрузка...
+    </div>
+
   </div>
 
-  <h2 class="section-title">👤 Аккаунт</h2>
+
+  <h2 class="section-title">
+    👤 Аккаунт
+  </h2>
+
 
   <div id="me" class="card">
     Загрузка...
   </div>
 
+
   <div id="adminPanel"></div>
 
 </div>
 
+
 <!-- MODAL -->
 
 <div id="modal" class="modal">
+
   <div class="box">
 
-    <button class="close" onclick="closeModal()">✕</button>
+    <button
+      class="close"
+      onclick="closeModal()">
+      ✕
+    </button>
 
     <div id="form"></div>
 
   </div>
+
 </div>
+
 
 <script>
 
-const programsEl = document.getElementById("programs");
-const meEl = document.getElementById("me");
-const adminPanel = document.getElementById("adminPanel");
-const modal = document.getElementById("modal");
-const form = document.getElementById("form");
 
+const programsEl =
+  document.getElementById("programs");
+
+const meEl =
+  document.getElementById("me");
+
+const adminPanel =
+  document.getElementById("adminPanel");
+
+const modal =
+  document.getElementById("modal");
+
+const form =
+  document.getElementById("form");
+
+
+let currentUser = null;
+
+
+/* =====================================================
+   SECURITY
+===================================================== */
 
 function escapeHtml(text){
+
   return String(text ?? "")
     .replace(/&/g,"&amp;")
     .replace(/</g,"&lt;")
     .replace(/>/g,"&gt;")
     .replace(/"/g,"&quot;")
     .replace(/'/g,"&#039;");
+
 }
 
 
-/* =========================
-   ЗАГРУЗКА ПРОГРАММ
-========================= */
+/* =====================================================
+   LOAD PROGRAMS
+===================================================== */
 
 async function loadPrograms(){
 
   try{
 
-    const response = await fetch("/api/programs");
-    const programs = await response.json();
+    const response =
+      await fetch("/api/programs");
+
+    const programs =
+      await response.json();
+
 
     if(!programs.length){
 
@@ -285,41 +434,52 @@ async function loadPrograms(){
         '<div class="empty">Программ пока нет.</div>';
 
       return;
+
     }
 
-    programsEl.innerHTML = programs.map(p => `
 
-      <div class="card">
+    programsEl.innerHTML =
+      programs.map(p => `
 
-        <span class="badge">
-          🏋️ ${escapeHtml(p.category)}
-        </span>
+        <div class="card">
 
-        <h3>
-          ${escapeHtml(p.title)}
-        </h3>
+          <span class="badge">
+            🏋️ ${escapeHtml(p.category)}
+          </span>
 
-        <p class="muted">
-          ${escapeHtml(p.description || "")}
-        </p>
+          <h3>
+            ${escapeHtml(p.title)}
+          </h3>
 
-        ${
-          p.weeks
-          ? `<p>📅 ${escapeHtml(p.weeks)} недель</p>`
-          : ""
-        }
+          <p class="muted">
+            ${escapeHtml(p.description || "")}
+          </p>
 
-        <div class="price">
-          ${Number(p.price_pln).toFixed(2)} zł
+          ${
+            p.weeks
+            ? `<p>📅 ${escapeHtml(p.weeks)} недель</p>`
+            : ""
+          }
+
+          <div class="price">
+            ${Number(p.price_pln).toFixed(2)} zł
+          </div>
+
+          <button
+            onclick="openProgram(${p.id})">
+            Открыть программу
+          </button>
+
+          <button
+            class="secondary"
+            onclick="buyProgram(${p.id})">
+            Купить
+          </button>
+
         </div>
 
-        <button onclick="buyProgram(${p.id})">
-          Купить
-        </button>
+      `).join("");
 
-      </div>
-
-    `).join("");
 
   }catch(error){
 
@@ -333,27 +493,248 @@ async function loadPrograms(){
 }
 
 
-/* =========================
-   АККАУНТ
-========================= */
+/* =====================================================
+   OPEN PROGRAM
+===================================================== */
+
+async function openProgram(programId){
+
+  try{
+
+    const programs =
+      await fetch("/api/programs")
+      .then(r => r.json());
+
+    const program =
+      programs.find(p => Number(p.id) === Number(programId));
+
+
+    if(!program){
+
+      alert("Программа не найдена.");
+
+      return;
+
+    }
+
+
+    const workouts =
+      await fetch(
+        "/api/programs/" +
+        programId +
+        "/workouts"
+      ).then(r => r.json());
+
+
+    let html = `
+
+      <div class="card">
+
+        <span class="badge">
+          ${escapeHtml(program.category)}
+        </span>
+
+        <h2>
+          ${escapeHtml(program.title)}
+        </h2>
+
+        <p class="muted">
+          ${escapeHtml(program.description || "")}
+        </p>
+
+        <div class="price">
+          ${Number(program.price_pln).toFixed(2)} zł
+        </div>
+
+      </div>
+
+    `;
+
+
+    if(!workouts.length){
+
+      html += `
+        <div class="card empty">
+          В этой программе пока нет тренировок.
+        </div>
+      `;
+
+    }else{
+
+      for(const workout of workouts){
+
+        const exercises =
+          await fetch(
+            "/api/workouts/" +
+            workout.id +
+            "/exercises"
+          ).then(r => r.json());
+
+
+        html += `
+
+          <div class="workout">
+
+            <div class="week">
+              Тиждень ${escapeHtml(workout.week)}
+              · День ${escapeHtml(workout.day)}
+            </div>
+
+            <div class="workout-title">
+              ${escapeHtml(workout.title)}
+            </div>
+
+            ${
+              workout.description
+              ? `<p class="muted">
+                   ${escapeHtml(workout.description)}
+                 </p>`
+              : ""
+            }
+
+        `;
+
+
+        if(!exercises.length){
+
+          html += `
+            <p class="muted">
+              Упражнений пока нет.
+            </p>
+          `;
+
+        }else{
+
+          exercises.forEach(ex => {
+
+            html += `
+
+              <div class="exercise">
+
+                <div class="exercise-name">
+                  ${escapeHtml(ex.name)}
+                </div>
+
+                <div class="exercise-data">
+
+                  ${
+                    ex.sets
+                    ? `Подходы: ${escapeHtml(ex.sets)}`
+                    : ""
+                  }
+
+                  ${
+                    ex.reps
+                    ? ` · Повторения: ${escapeHtml(ex.reps)}`
+                    : ""
+                  }
+
+                  ${
+                    ex.weight
+                    ? `<br>🏋️ Вес: ${escapeHtml(ex.weight)}`
+                    : ""
+                  }
+
+                  ${
+                    ex.rest
+                    ? `<br>⏱ Отдых: ${escapeHtml(ex.rest)}`
+                    : ""
+                  }
+
+                  ${
+                    ex.notes
+                    ? `<br>📝 ${escapeHtml(ex.notes)}`
+                    : ""
+                  }
+
+                  ${
+                    ex.video_url
+                    ? `<br>
+                       <a
+                         class="video"
+                         href="${escapeHtml(ex.video_url)}"
+                         target="_blank">
+                         ▶️ Смотреть видео
+                       </a>`
+                    : ""
+                  }
+
+                </div>
+
+              </div>
+
+            `;
+
+          });
+
+        }
+
+
+        html += `
+          </div>
+        `;
+
+      }
+
+    }
+
+
+    programsEl.innerHTML = html;
+
+    window.scrollTo({
+      top:0,
+      behavior:"smooth"
+    });
+
+
+  }catch(error){
+
+    console.error(error);
+
+    alert("Ошибка загрузки программы.");
+
+  }
+
+}
+
+
+/* =====================================================
+   ACCOUNT
+===================================================== */
 
 async function loadAccount(){
 
   try{
 
-    const response = await fetch("/api/me");
-    const data = await response.json();
+    const response =
+      await fetch("/api/me");
+
+    const data =
+      await response.json();
+
+
+    currentUser =
+      data.user || null;
+
 
     if(!data.user){
 
       meEl.innerHTML = `
-        <p>Вы не вошли в аккаунт.</p>
-        <button onclick="openLogin()">Войти</button>
+
+        <p>
+          Вы не вошли в аккаунт.
+        </p>
+
+        <button onclick="openLogin()">
+          Войти
+        </button>
+
       `;
 
       adminPanel.innerHTML = "";
 
       return;
+
     }
 
 
@@ -361,16 +742,22 @@ async function loadAccount(){
 
       <p>
         Вы вошли как
-        <b>${escapeHtml(data.user.email)}</b>
+        <b>
+          ${escapeHtml(data.user.email)}
+        </b>
       </p>
 
       ${
         data.user.is_admin
-        ? `<p>👑 <b>Администратор</b></p>`
+        ? `<p>
+             👑 <b>Администратор</b>
+           </p>`
         : ""
       }
 
-      <button class="secondary" onclick="logout()">
+      <button
+        class="secondary"
+        onclick="logout()">
         Выйти
       </button>
 
@@ -379,13 +766,14 @@ async function loadAccount(){
 
     if(data.user.is_admin){
 
-      renderAdmin();
+      await renderAdmin();
 
     }else{
 
       adminPanel.innerHTML = "";
 
     }
+
 
   }catch(error){
 
@@ -396,125 +784,158 @@ async function loadAccount(){
 }
 
 
-/* =========================
-   АДМИН-ПАНЕЛЬ
-========================= */
+/* =====================================================
+   ADMIN PANEL
+===================================================== */
 
 async function renderAdmin(){
 
-  let programs = [];
-
   try{
 
-    programs = await fetch("/api/programs")
+    const programs =
+      await fetch("/api/programs")
       .then(r => r.json());
 
-  }catch(e){
 
-    console.error(e);
+    adminPanel.innerHTML = `
 
-  }
+      <section class="card admin">
+
+        <h2>
+          👑 Админ-панель
+        </h2>
+
+        <p class="muted">
+          Управление программами, тренировками и упражнениями.
+        </p>
 
 
-  adminPanel.innerHTML = `
+        <h3>
+          ➕ Добавить программу
+        </h3>
 
-    <section class="card admin">
 
-      <h2>👑 Админ-панель</h2>
+        <input
+          id="adminTitle"
+          placeholder="Название программы">
 
-      <p class="muted">
-        Здесь ты можешь добавлять и удалять программы тренировок.
-      </p>
 
-      <h3>➕ Добавить программу</h3>
+        <input
+          id="adminCategory"
+          placeholder="Категория">
 
-      <input
-        id="adminTitle"
-        placeholder="Название программы"
-      >
 
-      <input
-        id="adminCategory"
-        placeholder="Категория, например: Набор массы"
-      >
+        <textarea
+          id="adminDescription"
+          placeholder="Описание программы"></textarea>
 
-      <textarea
-        id="adminDescription"
-        placeholder="Описание программы"
-      ></textarea>
 
-      <input
-        id="adminPrice"
-        type="number"
-        step="0.01"
-        min="0"
-        placeholder="Цена в PLN"
-      >
+        <input
+          id="adminPrice"
+          type="number"
+          step="0.01"
+          min="0"
+          placeholder="Цена в PLN">
 
-      <input
-        id="adminWeeks"
-        type="number"
-        min="1"
-        placeholder="Количество недель"
-      >
 
-      <button onclick="createProgram()">
-        Создать программу
-      </button>
+        <input
+          id="adminWeeks"
+          type="number"
+          min="1"
+          placeholder="Количество недель">
 
-      <h3 style="margin-top:30px">
-        📋 Управление программами
-      </h3>
 
-      <div>
+        <button onclick="createProgram()">
+          Создать программу
+        </button>
 
-        ${
-          programs.length
 
-          ? programs.map(p => `
+        <h3 style="margin-top:35px">
+          📋 Программы
+        </h3>
+
+
+        <div>
+
+          ${
+            programs.length
+
+            ? programs.map(p => `
 
               <div class="admin-program">
 
-                <div class="admin-info">
+                <div class="admin-program-title">
+                  ${escapeHtml(p.title)}
+                </div>
 
-                  <b>${escapeHtml(p.title)}</b>
+                <p class="muted">
+                  ${escapeHtml(p.category)}
+                  ·
+                  ${Number(p.price_pln).toFixed(2)} zł
+                </p>
 
-                  <div class="muted">
-                    ${escapeHtml(p.category)}
-                    ·
-                    ${Number(p.price_pln).toFixed(2)} zł
-                  </div>
+
+                <div class="admin-actions">
+
+                  <button
+                    onclick="showWorkoutForm(${p.id})">
+                    ➕ Добавить тренировку
+                  </button>
+
+
+                  <button
+                    class="secondary"
+                    onclick="manageWorkouts(${p.id})">
+                    📋 Тренировки
+                  </button>
+
+
+                  <button
+                    class="danger"
+                    onclick="deleteProgram(${p.id})">
+                    🗑 Удалить программу
+                  </button>
 
                 </div>
 
-                <button
-                  class="danger"
-                  onclick="deleteProgram(${p.id})"
-                >
-                  🗑 Удалить
-                </button>
+
+                <div
+                  id="workouts-${p.id}">
+                </div>
 
               </div>
 
-          `).join("")
+            `).join("")
 
-          : `<p class="muted">
-               Программ пока нет.
-             </p>`
-        }
+            : `
+              <p class="muted">
+                Программ пока нет.
+              </p>
+            `
+          }
 
-      </div>
+        </div>
 
-    </section>
+      </section>
 
-  `;
+    `;
+
+
+  }catch(error){
+
+    console.error(error);
+
+    adminPanel.innerHTML =
+      '<div class="card">Ошибка загрузки админ-панели.</div>';
+
+  }
 
 }
 
 
-/* =========================
-   СОЗДАНИЕ ПРОГРАММЫ
-========================= */
+/* =====================================================
+   CREATE PROGRAM
+===================================================== */
 
 async function createProgram(){
 
@@ -536,39 +957,46 @@ async function createProgram(){
 
   if(!title || !category || !price){
 
-    alert("Заполни название, категорию и цену.");
+    alert(
+      "Заполни название, категорию и цену."
+    );
 
     return;
 
   }
 
 
-  const response = await fetch(
-    "/api/admin/programs",
-    {
-      method:"POST",
+  const response =
+    await fetch(
+      "/api/admin/programs",
+      {
+        method:"POST",
 
-      headers:{
-        "Content-Type":"application/json"
-      },
+        headers:{
+          "Content-Type":"application/json"
+        },
 
-      body:JSON.stringify({
-        title,
-        category,
-        description,
-        price,
-        weeks
-      })
-    }
-  );
+        body:JSON.stringify({
+          title,
+          category,
+          description,
+          price,
+          weeks
+        })
+      }
+    );
 
 
-  const data = await response.json();
+  const data =
+    await response.json();
 
 
   if(!response.ok){
 
-    alert(data.error || "Ошибка создания программы");
+    alert(
+      data.error ||
+      "Ошибка создания программы"
+    );
 
     return;
 
@@ -577,85 +1005,764 @@ async function createProgram(){
 
   alert("✅ Программа создана!");
 
+
   await loadPrograms();
+
   await renderAdmin();
 
 }
 
 
-/* =========================
-   УДАЛЕНИЕ
-========================= */
+/* =====================================================
+   DELETE PROGRAM
+===================================================== */
 
 async function deleteProgram(id){
 
-  if(!confirm("Удалить эту программу?")){
+  if(!confirm(
+    "Удалить программу и все её тренировки?"
+  )){
 
     return;
 
   }
 
 
-  const response = await fetch(
-    "/api/admin/programs/" + id,
-    {
-      method:"DELETE"
-    }
-  );
+  const response =
+    await fetch(
+      "/api/admin/programs/" + id,
+      {
+        method:"DELETE"
+      }
+    );
 
 
-  const data = await response.json();
+  const data =
+    await response.json();
 
 
   if(!response.ok){
 
-    alert(data.error || "Ошибка удаления");
+    alert(
+      data.error ||
+      "Ошибка удаления"
+    );
 
     return;
 
   }
 
 
-  alert("Программа удалена.");
-
   await loadPrograms();
+
   await renderAdmin();
 
 }
 
 
-/* =========================
+/* =====================================================
+   SHOW WORKOUT FORM
+===================================================== */
+
+function showWorkoutForm(programId){
+
+  form.innerHTML = `
+
+    <h2>
+      ➕ Добавить тренировку
+    </h2>
+
+    <p class="muted">
+      Выбери неделю и день программы.
+    </p>
+
+
+    <input
+      id="workoutProgramId"
+      type="hidden"
+      value="${programId}">
+
+
+    <input
+      id="workoutWeek"
+      type="number"
+      min="1"
+      value="1"
+      placeholder="Номер недели">
+
+
+    <input
+      id="workoutDay"
+      type="number"
+      min="1"
+      value="1"
+      placeholder="Номер дня">
+
+
+    <input
+      id="workoutTitle"
+      placeholder="Название тренировки">
+
+
+    <textarea
+      id="workoutDescription"
+      placeholder="Описание тренировки"></textarea>
+
+
+    <button onclick="createWorkout()">
+      Создать тренировку
+    </button>
+
+  `;
+
+
+  modal.style.display = "flex";
+
+}
+
+
+/* =====================================================
+   CREATE WORKOUT
+===================================================== */
+
+async function createWorkout(){
+
+  const programId =
+    document.getElementById(
+      "workoutProgramId"
+    ).value;
+
+  const week =
+    document.getElementById(
+      "workoutWeek"
+    ).value;
+
+  const day =
+    document.getElementById(
+      "workoutDay"
+    ).value;
+
+  const title =
+    document.getElementById(
+      "workoutTitle"
+    ).value.trim();
+
+  const description =
+    document.getElementById(
+      "workoutDescription"
+    ).value.trim();
+
+
+  if(!title){
+
+    alert(
+      "Введи название тренировки."
+    );
+
+    return;
+
+  }
+
+
+  const response =
+    await fetch(
+      "/api/admin/workouts",
+      {
+        method:"POST",
+
+        headers:{
+          "Content-Type":"application/json"
+        },
+
+        body:JSON.stringify({
+          programId,
+          week,
+          day,
+          title,
+          description
+        })
+      }
+    );
+
+
+  const data =
+    await response.json();
+
+
+  if(!response.ok){
+
+    alert(
+      data.error ||
+      "Ошибка создания тренировки"
+    );
+
+    return;
+
+  }
+
+
+  closeModal();
+
+  alert("✅ Тренировка создана!");
+
+
+  await renderAdmin();
+
+  await manageWorkouts(programId);
+
+}
+
+
+/* =====================================================
+   MANAGE WORKOUTS
+===================================================== */
+
+async function manageWorkouts(programId){
+
+  const box =
+    document.getElementById(
+      "workouts-" + programId
+    );
+
+
+  if(!box){
+
+    return;
+
+  }
+
+
+  try{
+
+    const workouts =
+      await fetch(
+        "/api/programs/" +
+        programId +
+        "/workouts"
+      ).then(r => r.json());
+
+
+    if(!workouts.length){
+
+      box.innerHTML = `
+        <div class="empty">
+          Тренировок пока нет.
+        </div>
+      `;
+
+      return;
+
+    }
+
+
+    box.innerHTML =
+      workouts.map(w => `
+
+        <div class="workout">
+
+          <div class="week">
+            Неделя ${escapeHtml(w.week)}
+            · День ${escapeHtml(w.day)}
+          </div>
+
+          <div class="workout-title">
+            ${escapeHtml(w.title)}
+          </div>
+
+          ${
+            w.description
+            ? `<p class="muted">
+                 ${escapeHtml(w.description)}
+               </p>`
+            : ""
+          }
+
+
+          <div class="workout-actions">
+
+            <button
+              onclick="showExerciseForm(${w.id})">
+              ➕ Добавить упражнение
+            </button>
+
+            <button
+              class="secondary"
+              onclick="loadExercises(${w.id})">
+              📋 Упражнения
+            </button>
+
+            <button
+              class="danger"
+              onclick="deleteWorkout(${w.id},${programId})">
+              🗑 Удалить
+            </button>
+
+          </div>
+
+
+          <div id="exercises-${w.id}"></div>
+
+        </div>
+
+      `).join("");
+
+
+  }catch(error){
+
+    console.error(error);
+
+    box.innerHTML =
+      '<p class="muted">Ошибка загрузки тренировок.</p>';
+
+  }
+
+}
+
+
+/* =====================================================
+   SHOW EXERCISE FORM
+===================================================== */
+
+function showExerciseForm(workoutId){
+
+  form.innerHTML = `
+
+    <h2>
+      ➕ Добавить упражнение
+    </h2>
+
+
+    <input
+      id="exerciseWorkoutId"
+      type="hidden"
+      value="${workoutId}">
+
+
+    <input
+      id="exerciseName"
+      placeholder="Название упражнения">
+
+
+    <input
+      id="exerciseSets"
+      type="number"
+      min="1"
+      placeholder="Количество подходов">
+
+
+    <input
+      id="exerciseReps"
+      placeholder="Повторения, например 8-12">
+
+
+    <input
+      id="exerciseWeight"
+      placeholder="Вес, например 20 кг">
+
+
+    <input
+      id="exerciseRest"
+      placeholder="Отдых, например 90 сек">
+
+
+    <input
+      id="exerciseVideo"
+      type="url"
+      placeholder="Ссылка на видео">
+
+
+    <textarea
+      id="exerciseNotes"
+      placeholder="Примечания"></textarea>
+
+
+    <input
+      id="exercisePosition"
+      type="number"
+      min="0"
+      value="0"
+      placeholder="Порядок упражнения">
+
+
+    <button onclick="createExercise()">
+      Добавить упражнение
+    </button>
+
+  `;
+
+
+  modal.style.display = "flex";
+
+}
+
+
+/* =====================================================
+   CREATE EXERCISE
+===================================================== */
+
+async function createExercise(){
+
+  const workoutId =
+    document.getElementById(
+      "exerciseWorkoutId"
+    ).value;
+
+  const name =
+    document.getElementById(
+      "exerciseName"
+    ).value.trim();
+
+  const sets =
+    document.getElementById(
+      "exerciseSets"
+    ).value;
+
+  const reps =
+    document.getElementById(
+      "exerciseReps"
+    ).value.trim();
+
+  const weight =
+    document.getElementById(
+      "exerciseWeight"
+    ).value.trim();
+
+  const rest =
+    document.getElementById(
+      "exerciseRest"
+    ).value.trim();
+
+  const videoUrl =
+    document.getElementById(
+      "exerciseVideo"
+    ).value.trim();
+
+  const notes =
+    document.getElementById(
+      "exerciseNotes"
+    ).value.trim();
+
+  const position =
+    document.getElementById(
+      "exercisePosition"
+    ).value;
+
+
+  if(!name){
+
+    alert(
+      "Введи название упражнения."
+    );
+
+    return;
+
+  }
+
+
+  const response =
+    await fetch(
+      "/api/admin/exercises",
+      {
+        method:"POST",
+
+        headers:{
+          "Content-Type":"application/json"
+        },
+
+        body:JSON.stringify({
+
+          workoutId,
+          name,
+          sets,
+          reps,
+          weight,
+          rest,
+
+          videoUrl,
+
+          notes,
+
+          position
+
+        })
+      }
+    );
+
+
+  const data =
+    await response.json();
+
+
+  if(!response.ok){
+
+    alert(
+      data.error ||
+      "Ошибка добавления упражнения"
+    );
+
+    return;
+
+  }
+
+
+  closeModal();
+
+  alert("✅ Упражнение добавлено!");
+
+
+  await loadAccount();
+
+}
+
+
+/* =====================================================
+   LOAD EXERCISES
+===================================================== */
+
+async function loadExercises(workoutId){
+
+  const box =
+    document.getElementById(
+      "exercises-" + workoutId
+    );
+
+
+  if(!box){
+
+    return;
+
+  }
+
+
+  try{
+
+    const exercises =
+      await fetch(
+        "/api/workouts/" +
+        workoutId +
+        "/exercises"
+      ).then(r => r.json());
+
+
+    if(!exercises.length){
+
+      box.innerHTML = `
+        <p class="muted">
+          Упражнений пока нет.
+        </p>
+      `;
+
+      return;
+
+    }
+
+
+    box.innerHTML =
+      exercises.map(ex => `
+
+        <div class="exercise">
+
+          <div class="exercise-name">
+            ${escapeHtml(ex.name)}
+          </div>
+
+          <div class="exercise-data">
+
+            ${
+              ex.sets
+              ? `Подходы: ${escapeHtml(ex.sets)}`
+              : ""
+            }
+
+            ${
+              ex.reps
+              ? ` · Повторения: ${escapeHtml(ex.reps)}`
+              : ""
+            }
+
+            ${
+              ex.weight
+              ? `<br>🏋️ Вес: ${escapeHtml(ex.weight)}`
+              : ""
+            }
+
+            ${
+              ex.rest
+              ? `<br>⏱ Отдых: ${escapeHtml(ex.rest)}`
+              : ""
+            }
+
+            ${
+              ex.notes
+              ? `<br>📝 ${escapeHtml(ex.notes)}`
+              : ""
+            }
+
+          </div>
+
+
+          <div class="workout-actions">
+
+            <button
+              class="danger"
+              onclick="deleteExercise(${ex.id},${workoutId})">
+              🗑 Удалить
+            </button>
+
+          </div>
+
+        </div>
+
+      `).join("");
+
+
+  }catch(error){
+
+    console.error(error);
+
+    box.innerHTML =
+      '<p class="muted">Ошибка загрузки упражнений.</p>';
+
+  }
+
+}
+
+
+/* =====================================================
+   DELETE WORKOUT
+===================================================== */
+
+async function deleteWorkout(
+  workoutId,
+  programId
+){
+
+  if(!confirm(
+    "Удалить тренировку и все упражнения?"
+  )){
+
+    return;
+
+  }
+
+
+  const response =
+    await fetch(
+      "/api/admin/workouts/" +
+      workoutId,
+      {
+        method:"DELETE"
+      }
+    );
+
+
+  const data =
+    await response.json();
+
+
+  if(!response.ok){
+
+    alert(
+      data.error ||
+      "Ошибка удаления"
+    );
+
+    return;
+
+  }
+
+
+  await renderAdmin();
+
+  await manageWorkouts(programId);
+
+}
+
+
+/* =====================================================
+   DELETE EXERCISE
+===================================================== */
+
+async function deleteExercise(
+  exerciseId,
+  workoutId
+){
+
+  if(!confirm(
+    "Удалить это упражнение?"
+  )){
+
+    return;
+
+  }
+
+
+  const response =
+    await fetch(
+      "/api/admin/exercises/" +
+      exerciseId,
+      {
+        method:"DELETE"
+      }
+    );
+
+
+  const data =
+    await response.json();
+
+
+  if(!response.ok){
+
+    alert(
+      data.error ||
+      "Ошибка удаления"
+    );
+
+    return;
+
+  }
+
+
+  await loadExercises(workoutId);
+
+}
+
+
+/* =====================================================
    LOGIN
-========================= */
+===================================================== */
 
 function openLogin(){
 
   form.innerHTML = `
 
-    <h2>Вход</h2>
+    <h2>
+      Вход
+    </h2>
+
 
     <input
       id="loginEmail"
       type="email"
-      placeholder="E-mail"
-    >
+      placeholder="E-mail">
+
 
     <input
       id="loginPassword"
       type="password"
-      placeholder="Пароль"
-    >
+      placeholder="Пароль">
+
 
     <button onclick="login()">
       Войти
     </button>
 
-    <p style="margin-top:15px">
+
+    <p>
 
       <button
         class="secondary"
-        onclick="openRegister()"
-      >
+        onclick="openRegister()">
         Создать аккаунт
       </button>
 
@@ -663,39 +1770,47 @@ function openLogin(){
 
   `;
 
+
   modal.style.display = "flex";
 
 }
 
 
+/* =====================================================
+   REGISTER
+===================================================== */
+
 function openRegister(){
 
   form.innerHTML = `
 
-    <h2>Регистрация</h2>
+    <h2>
+      Регистрация
+    </h2>
+
 
     <input
       id="registerEmail"
       type="email"
-      placeholder="E-mail"
-    >
+      placeholder="E-mail">
+
 
     <input
       id="registerPassword"
       type="password"
-      placeholder="Пароль"
-    >
+      placeholder="Пароль">
+
 
     <button onclick="register()">
       Создать аккаунт
     </button>
 
-    <p style="margin-top:15px">
+
+    <p>
 
       <button
         class="secondary"
-        onclick="openLogin()"
-      >
+        onclick="openLogin()">
         Уже есть аккаунт
       </button>
 
@@ -706,42 +1821,52 @@ function openRegister(){
 }
 
 
-/* =========================
+/* =====================================================
    LOGIN REQUEST
-========================= */
+===================================================== */
 
 async function login(){
 
   const email =
-    document.getElementById("loginEmail").value.trim();
+    document.getElementById(
+      "loginEmail"
+    ).value.trim();
 
   const password =
-    document.getElementById("loginPassword").value;
+    document.getElementById(
+      "loginPassword"
+    ).value;
 
 
-  const response = await fetch(
-    "/api/login",
-    {
-      method:"POST",
+  const response =
+    await fetch(
+      "/api/login",
+      {
+        method:"POST",
 
-      headers:{
-        "Content-Type":"application/json"
-      },
+        headers:{
+          "Content-Type":
+            "application/json"
+        },
 
-      body:JSON.stringify({
-        email,
-        password
-      })
-    }
-  );
+        body:JSON.stringify({
+          email,
+          password
+        })
+      }
+    );
 
 
-  const data = await response.json();
+  const data =
+    await response.json();
 
 
   if(!response.ok){
 
-    alert(data.error || "Ошибка входа");
+    alert(
+      data.error ||
+      "Ошибка входа"
+    );
 
     return;
 
@@ -755,42 +1880,52 @@ async function login(){
 }
 
 
-/* =========================
-   REGISTER
-========================= */
+/* =====================================================
+   REGISTER REQUEST
+===================================================== */
 
 async function register(){
 
   const email =
-    document.getElementById("registerEmail").value.trim();
+    document.getElementById(
+      "registerEmail"
+    ).value.trim();
 
   const password =
-    document.getElementById("registerPassword").value;
+    document.getElementById(
+      "registerPassword"
+    ).value;
 
 
-  const response = await fetch(
-    "/api/register",
-    {
-      method:"POST",
+  const response =
+    await fetch(
+      "/api/register",
+      {
+        method:"POST",
 
-      headers:{
-        "Content-Type":"application/json"
-      },
+        headers:{
+          "Content-Type":
+            "application/json"
+        },
 
-      body:JSON.stringify({
-        email,
-        password
-      })
-    }
-  );
+        body:JSON.stringify({
+          email,
+          password
+        })
+      }
+    );
 
 
-  const data = await response.json();
+  const data =
+    await response.json();
 
 
   if(!response.ok){
 
-    alert(data.error || "Ошибка регистрации");
+    alert(
+      data.error ||
+      "Ошибка регистрации"
+    );
 
     return;
 
@@ -804,9 +1939,9 @@ async function register(){
 }
 
 
-/* =========================
+/* =====================================================
    LOGOUT
-========================= */
+===================================================== */
 
 async function logout(){
 
@@ -817,14 +1952,15 @@ async function logout(){
     }
   );
 
+
   await load();
 
 }
 
 
-/* =========================
+/* =====================================================
    BUY
-========================= */
+===================================================== */
 
 function buyProgram(id){
 
@@ -835,9 +1971,9 @@ function buyProgram(id){
 }
 
 
-/* =========================
+/* =====================================================
    MODAL
-========================= */
+===================================================== */
 
 function closeModal(){
 
@@ -846,9 +1982,9 @@ function closeModal(){
 }
 
 
-/* =========================
-   LOAD ALL
-========================= */
+/* =====================================================
+   LOAD
+===================================================== */
 
 async function load(){
 
@@ -860,6 +1996,7 @@ async function load(){
 
 
 load();
+
 
 </script>
 
