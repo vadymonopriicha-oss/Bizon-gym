@@ -340,7 +340,226 @@ app.delete(
     }
   }
 );
+/* =========================================================
+   WORKOUTS
+========================================================= */
 
+// Получить тренировки программы
+app.get("/api/programs/:programId/workouts", async (req, res) => {
+  try {
+    const result = await pool.query(`
+      SELECT
+        w.id,
+        w.program_id,
+        w.week,
+        w.day,
+        w.title,
+        w.description
+      FROM workouts w
+      WHERE w.program_id = $1
+      ORDER BY w.week ASC, w.day ASC, w.id ASC
+    `, [req.params.programId]);
+
+    res.json(result.rows);
+
+  } catch (e) {
+    console.error("WORKOUTS ERROR:", e);
+
+    res.status(500).json({
+      error: "Ошибка загрузки тренировок"
+    });
+  }
+});
+
+
+// Получить упражнения конкретной тренировки
+app.get("/api/workouts/:workoutId/exercises", async (req, res) => {
+  try {
+    const result = await pool.query(`
+      SELECT
+        id,
+        workout_id,
+        name,
+        sets,
+        reps,
+        weight,
+        rest,
+        video_url,
+        notes,
+        position
+      FROM exercises
+      WHERE workout_id = $1
+      ORDER BY position ASC, id ASC
+    `, [req.params.workoutId]);
+
+    res.json(result.rows);
+
+  } catch (e) {
+    console.error("EXERCISES ERROR:", e);
+
+    res.status(500).json({
+      error: "Ошибка загрузки упражнений"
+    });
+  }
+});
+
+
+// Админ: создать тренировочный день
+app.post("/api/admin/workouts", admin, async (req, res) => {
+  try {
+
+    const {
+      programId,
+      week,
+      day,
+      title,
+      description
+    } = req.body;
+
+    if (!programId || !title) {
+      return res.status(400).json({
+        error: "Нужны программа и название тренировки"
+      });
+    }
+
+    const result = await pool.query(`
+      INSERT INTO workouts(
+        program_id,
+        week,
+        day,
+        title,
+        description
+      )
+      VALUES($1, $2, $3, $4, $5)
+      RETURNING *
+    `, [
+      programId,
+      Number(week) || 1,
+      Number(day) || 1,
+      title,
+      description || ""
+    ]);
+
+    res.json(result.rows[0]);
+
+  } catch (e) {
+
+    console.error("WORKOUT CREATE ERROR:", e);
+
+    res.status(500).json({
+      error: "Ошибка создания тренировки"
+    });
+  }
+});
+
+
+// Админ: удалить тренировку
+app.delete("/api/admin/workouts/:id", admin, async (req, res) => {
+  try {
+
+    await pool.query(`
+      DELETE FROM workouts
+      WHERE id = $1
+    `, [req.params.id]);
+
+    res.json({
+      ok: true
+    });
+
+  } catch (e) {
+
+    console.error("WORKOUT DELETE ERROR:", e);
+
+    res.status(500).json({
+      error: "Ошибка удаления тренировки"
+    });
+  }
+});
+
+
+// Админ: добавить упражнение
+app.post("/api/admin/exercises", admin, async (req, res) => {
+  try {
+
+    const {
+      workoutId,
+      name,
+      sets,
+      reps,
+      weight,
+      rest,
+      videoUrl,
+      notes,
+      position
+    } = req.body;
+
+    if (!workoutId || !name) {
+      return res.status(400).json({
+        error: "Нужны тренировка и название упражнения"
+      });
+    }
+
+    const result = await pool.query(`
+      INSERT INTO exercises(
+        workout_id,
+        name,
+        sets,
+        reps,
+        weight,
+        rest,
+        video_url,
+        notes,
+        position
+      )
+      VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9)
+      RETURNING *
+    `, [
+      workoutId,
+      name,
+      sets || null,
+      reps || "",
+      weight || "",
+      rest || "",
+      videoUrl || "",
+      notes || "",
+      Number(position) || 0
+    ]);
+
+    res.json(result.rows[0]);
+
+  } catch (e) {
+
+    console.error("EXERCISE CREATE ERROR:", e);
+
+    res.status(500).json({
+      error: "Ошибка создания упражнения"
+    });
+  }
+});
+
+
+// Админ: удалить упражнение
+app.delete("/api/admin/exercises/:id", admin, async (req, res) => {
+  try {
+
+    await pool.query(`
+      DELETE FROM exercises
+      WHERE id = $1
+    `, [req.params.id]);
+
+    res.json({
+      ok: true
+    });
+
+  } catch (e) {
+
+    console.error("EXERCISE DELETE ERROR:", e);
+
+    res.status(500).json({
+      error: "Ошибка удаления упражнения"
+    });
+  }
+});
 /* =========================================================
    PAYU SANDBOX
 ========================================================= */
