@@ -1,13 +1,867 @@
-<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Bizon GYM</title><style>
-body{margin:0;background:#090c10;color:#f5f7fa;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}.wrap{max-width:1000px;margin:auto;padding:20px}.top{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #29313a;padding:15px 0}.logo{font-size:28px;font-weight:900}.logo span{color:#62e6a4}button{background:#62e6a4;border:0;padding:11px 16px;border-radius:10px;font-weight:800;cursor:pointer}input,textarea,select{width:100%;padding:12px;margin:6px 0;background:#141a21;color:#fff;border:1px solid #303943;border-radius:9px;box-sizing:border-box}.hero{padding:55px 0}.hero h1{font-size:55px;margin:0}.muted{color:#9da7b1}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:15px}.card{background:#141a21;border:1px solid #29313a;border-radius:16px;padding:18px}.price{font-size:21px;font-weight:900;margin:10px 0}.modal{display:none;position:fixed;inset:0;background:#000b;align-items:center;justify-content:center;padding:18px}.box{background:#151b22;padding:22px;border-radius:16px;width:min(430px,100%)}.x{float:right;background:none;color:#fff;font-size:22px}
-</style></head><body><div class="wrap"><div class="top"><div class="logo">BIZON <span>GYM</span></div><div><button onclick="openLogin()">Войти</button></div></div>
-<section class="hero"><h1>Тренируйся.<br>Становись сильнее.</h1><p class="muted">Тренировочные программы для зала, дома и площадки.</p></section>
-<h2>Программы</h2><div id="programs" class="grid"></div><h2>Мой аккаунт</h2><div id="me" class="card">Загрузка...</div></div>
-<div id="modal" class="modal"><div class="box"><button class="x" onclick="closeModal()">×</button><div id="form"></div></div></div>
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bizon GYM</title>
+
+<style>
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#0b0b0b;
+  color:#fff;
+}
+
+header{
+  padding:20px;
+  border-bottom:1px solid #292929;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  position:sticky;
+  top:0;
+  background:#0b0b0b;
+  z-index:10;
+}
+
+.logo{
+  font-size:25px;
+  font-weight:900;
+  color:#ff7a00;
+}
+
+.container{
+  max-width:1100px;
+  margin:auto;
+  padding:25px 16px 50px;
+}
+
+.hero{
+  padding:25px 0;
+}
+
+.hero h1{
+  font-size:38px;
+  margin:0 0 10px;
+}
+
+.muted{
+  color:#999;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:18px;
+}
+
+.card{
+  background:#151515;
+  border:1px solid #292929;
+  border-radius:16px;
+  padding:20px;
+  margin-bottom:18px;
+}
+
+.card h3{
+  margin:10px 0;
+}
+
+.price{
+  font-size:24px;
+  font-weight:bold;
+  color:#ff7a00;
+  margin:15px 0;
+}
+
+button{
+  border:0;
+  border-radius:10px;
+  padding:12px 17px;
+  background:#ff7a00;
+  color:#fff;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+button:hover{
+  opacity:.9;
+}
+
+button.danger{
+  background:#d62828;
+}
+
+button.secondary{
+  background:#292929;
+}
+
+input,textarea,select{
+  width:100%;
+  padding:13px;
+  margin:7px 0 12px;
+  border-radius:9px;
+  border:1px solid #333;
+  background:#0e0e0e;
+  color:#fff;
+  font-size:16px;
+}
+
+textarea{
+  min-height:100px;
+  resize:vertical;
+}
+
+.admin{
+  border:1px solid #ff7a00;
+  background:#111;
+}
+
+.admin h2{
+  color:#ff7a00;
+}
+
+.admin-program{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+  border-top:1px solid #292929;
+  padding:15px 0;
+}
+
+.admin-program:first-child{
+  border-top:0;
+}
+
+.admin-info{
+  flex:1;
+}
+
+.badge{
+  display:inline-block;
+  background:#ff7a00;
+  color:#fff;
+  padding:5px 9px;
+  border-radius:20px;
+  font-size:12px;
+  font-weight:bold;
+}
+
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.8);
+  align-items:center;
+  justify-content:center;
+  z-index:100;
+  padding:20px;
+}
+
+.box{
+  width:100%;
+  max-width:450px;
+  background:#151515;
+  border:1px solid #333;
+  border-radius:18px;
+  padding:25px;
+}
+
+.close{
+  float:right;
+  background:#292929;
+  padding:7px 11px;
+}
+
+.section-title{
+  margin-top:35px;
+  margin-bottom:18px;
+}
+
+.empty{
+  padding:20px;
+  text-align:center;
+  color:#888;
+}
+
+@media(max-width:600px){
+  .hero h1{
+    font-size:30px;
+  }
+
+  .admin-program{
+    flex-direction:column;
+    align-items:stretch;
+  }
+
+  .admin-program button{
+    width:100%;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">🦬 BIZON GYM</div>
+  <button onclick="openLogin()">Войти</button>
+</header>
+
+<div class="container">
+
+  <section class="hero">
+    <h1>Тренируйся сильнее.</h1>
+    <p class="muted">
+      Программы тренировок Bizon GYM
+    </p>
+  </section>
+
+  <h2 class="section-title">🏋️ Программы</h2>
+
+  <div id="programs" class="grid">
+    <div class="empty">Загрузка...</div>
+  </div>
+
+  <h2 class="section-title">👤 Аккаунт</h2>
+
+  <div id="me" class="card">
+    Загрузка...
+  </div>
+
+  <div id="adminPanel"></div>
+
+</div>
+
+<!-- MODAL -->
+
+<div id="modal" class="modal">
+  <div class="box">
+
+    <button class="close" onclick="closeModal()">✕</button>
+
+    <div id="form"></div>
+
+  </div>
+</div>
+
 <script>
-async function load(){let p=await fetch("/api/programs").then(r=>r.json());document.getElementById("programs").innerHTML=p.map(x=>`<div class="card"><div>🏋️ ${x.category}</div><h3>${x.title}</h3><p class="muted">${x.description||""}</p><div class="price">${Number(x.price_pln).toFixed(2)} zł</div><button onclick="alert('Оплата подключается следующим этапом')">Купить</button></div>`).join("")||"<p class='muted'>Программ пока нет.</p>";let m=await fetch("/api/me").then(r=>r.json());document.getElementById("me").innerHTML=m.user?`Вы вошли как <b>${m.user.email}</b>${m.user.is_admin?"<br><br>👑 Администратор":""}<br><br><button onclick="logout()">Выйти</button>`:"Вы не вошли. Нажмите «Войти»."}
-function openLogin(){form.innerHTML='<h2>Вход</h2><input id="email" placeholder="E-mail"><input id="password" type="password" placeholder="Пароль"><button onclick="login()">Войти</button><p><button onclick="register()">Создать аккаунт</button></p>';modal.style.display="flex"}
-async function login(){let r=await fetch("/api/login",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({email:email.value,password:password.value})});let d=await r.json();if(!r.ok)return alert(d.error);closeModal();load()}
-async function register(){let r=await fetch("/api/register",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({email:email.value,password:password.value})});let d=await r.json();if(!r.ok)return alert(d.error);closeModal();load()}
-async function logout(){await fetch("/api/logout",{method:"POST"});load()}function closeModal(){modal.style.display="none"}load();
-</script></body></html>
+
+const programsEl = document.getElementById("programs");
+const meEl = document.getElementById("me");
+const adminPanel = document.getElementById("adminPanel");
+const modal = document.getElementById("modal");
+const form = document.getElementById("form");
+
+
+function escapeHtml(text){
+  return String(text ?? "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+}
+
+
+/* =========================
+   ЗАГРУЗКА ПРОГРАММ
+========================= */
+
+async function loadPrograms(){
+
+  try{
+
+    const response = await fetch("/api/programs");
+    const programs = await response.json();
+
+    if(!programs.length){
+
+      programsEl.innerHTML =
+        '<div class="empty">Программ пока нет.</div>';
+
+      return;
+    }
+
+    programsEl.innerHTML = programs.map(p => `
+
+      <div class="card">
+
+        <span class="badge">
+          🏋️ ${escapeHtml(p.category)}
+        </span>
+
+        <h3>
+          ${escapeHtml(p.title)}
+        </h3>
+
+        <p class="muted">
+          ${escapeHtml(p.description || "")}
+        </p>
+
+        ${
+          p.weeks
+          ? `<p>📅 ${escapeHtml(p.weeks)} недель</p>`
+          : ""
+        }
+
+        <div class="price">
+          ${Number(p.price_pln).toFixed(2)} zł
+        </div>
+
+        <button onclick="buyProgram(${p.id})">
+          Купить
+        </button>
+
+      </div>
+
+    `).join("");
+
+  }catch(error){
+
+    console.error(error);
+
+    programsEl.innerHTML =
+      '<div class="empty">Ошибка загрузки программ.</div>';
+
+  }
+
+}
+
+
+/* =========================
+   АККАУНТ
+========================= */
+
+async function loadAccount(){
+
+  try{
+
+    const response = await fetch("/api/me");
+    const data = await response.json();
+
+    if(!data.user){
+
+      meEl.innerHTML = `
+        <p>Вы не вошли в аккаунт.</p>
+        <button onclick="openLogin()">Войти</button>
+      `;
+
+      adminPanel.innerHTML = "";
+
+      return;
+    }
+
+
+    meEl.innerHTML = `
+
+      <p>
+        Вы вошли как
+        <b>${escapeHtml(data.user.email)}</b>
+      </p>
+
+      ${
+        data.user.is_admin
+        ? `<p>👑 <b>Администратор</b></p>`
+        : ""
+      }
+
+      <button class="secondary" onclick="logout()">
+        Выйти
+      </button>
+
+    `;
+
+
+    if(data.user.is_admin){
+
+      renderAdmin();
+
+    }else{
+
+      adminPanel.innerHTML = "";
+
+    }
+
+  }catch(error){
+
+    console.error(error);
+
+  }
+
+}
+
+
+/* =========================
+   АДМИН-ПАНЕЛЬ
+========================= */
+
+async function renderAdmin(){
+
+  let programs = [];
+
+  try{
+
+    programs = await fetch("/api/programs")
+      .then(r => r.json());
+
+  }catch(e){
+
+    console.error(e);
+
+  }
+
+
+  adminPanel.innerHTML = `
+
+    <section class="card admin">
+
+      <h2>👑 Админ-панель</h2>
+
+      <p class="muted">
+        Здесь ты можешь добавлять и удалять программы тренировок.
+      </p>
+
+      <h3>➕ Добавить программу</h3>
+
+      <input
+        id="adminTitle"
+        placeholder="Название программы"
+      >
+
+      <input
+        id="adminCategory"
+        placeholder="Категория, например: Набор массы"
+      >
+
+      <textarea
+        id="adminDescription"
+        placeholder="Описание программы"
+      ></textarea>
+
+      <input
+        id="adminPrice"
+        type="number"
+        step="0.01"
+        min="0"
+        placeholder="Цена в PLN"
+      >
+
+      <input
+        id="adminWeeks"
+        type="number"
+        min="1"
+        placeholder="Количество недель"
+      >
+
+      <button onclick="createProgram()">
+        Создать программу
+      </button>
+
+      <h3 style="margin-top:30px">
+        📋 Управление программами
+      </h3>
+
+      <div>
+
+        ${
+          programs.length
+
+          ? programs.map(p => `
+
+              <div class="admin-program">
+
+                <div class="admin-info">
+
+                  <b>${escapeHtml(p.title)}</b>
+
+                  <div class="muted">
+                    ${escapeHtml(p.category)}
+                    ·
+                    ${Number(p.price_pln).toFixed(2)} zł
+                  </div>
+
+                </div>
+
+                <button
+                  class="danger"
+                  onclick="deleteProgram(${p.id})"
+                >
+                  🗑 Удалить
+                </button>
+
+              </div>
+
+          `).join("")
+
+          : `<p class="muted">
+               Программ пока нет.
+             </p>`
+        }
+
+      </div>
+
+    </section>
+
+  `;
+
+}
+
+
+/* =========================
+   СОЗДАНИЕ ПРОГРАММЫ
+========================= */
+
+async function createProgram(){
+
+  const title =
+    document.getElementById("adminTitle").value.trim();
+
+  const category =
+    document.getElementById("adminCategory").value.trim();
+
+  const description =
+    document.getElementById("adminDescription").value.trim();
+
+  const price =
+    document.getElementById("adminPrice").value;
+
+  const weeks =
+    document.getElementById("adminWeeks").value;
+
+
+  if(!title || !category || !price){
+
+    alert("Заполни название, категорию и цену.");
+
+    return;
+
+  }
+
+
+  const response = await fetch(
+    "/api/admin/programs",
+    {
+      method:"POST",
+
+      headers:{
+        "Content-Type":"application/json"
+      },
+
+      body:JSON.stringify({
+        title,
+        category,
+        description,
+        price,
+        weeks
+      })
+    }
+  );
+
+
+  const data = await response.json();
+
+
+  if(!response.ok){
+
+    alert(data.error || "Ошибка создания программы");
+
+    return;
+
+  }
+
+
+  alert("✅ Программа создана!");
+
+  await loadPrograms();
+  await renderAdmin();
+
+}
+
+
+/* =========================
+   УДАЛЕНИЕ
+========================= */
+
+async function deleteProgram(id){
+
+  if(!confirm("Удалить эту программу?")){
+
+    return;
+
+  }
+
+
+  const response = await fetch(
+    "/api/admin/programs/" + id,
+    {
+      method:"DELETE"
+    }
+  );
+
+
+  const data = await response.json();
+
+
+  if(!response.ok){
+
+    alert(data.error || "Ошибка удаления");
+
+    return;
+
+  }
+
+
+  alert("Программа удалена.");
+
+  await loadPrograms();
+  await renderAdmin();
+
+}
+
+
+/* =========================
+   LOGIN
+========================= */
+
+function openLogin(){
+
+  form.innerHTML = `
+
+    <h2>Вход</h2>
+
+    <input
+      id="loginEmail"
+      type="email"
+      placeholder="E-mail"
+    >
+
+    <input
+      id="loginPassword"
+      type="password"
+      placeholder="Пароль"
+    >
+
+    <button onclick="login()">
+      Войти
+    </button>
+
+    <p style="margin-top:15px">
+
+      <button
+        class="secondary"
+        onclick="openRegister()"
+      >
+        Создать аккаунт
+      </button>
+
+    </p>
+
+  `;
+
+  modal.style.display = "flex";
+
+}
+
+
+function openRegister(){
+
+  form.innerHTML = `
+
+    <h2>Регистрация</h2>
+
+    <input
+      id="registerEmail"
+      type="email"
+      placeholder="E-mail"
+    >
+
+    <input
+      id="registerPassword"
+      type="password"
+      placeholder="Пароль"
+    >
+
+    <button onclick="register()">
+      Создать аккаунт
+    </button>
+
+    <p style="margin-top:15px">
+
+      <button
+        class="secondary"
+        onclick="openLogin()"
+      >
+        Уже есть аккаунт
+      </button>
+
+    </p>
+
+  `;
+
+}
+
+
+/* =========================
+   LOGIN REQUEST
+========================= */
+
+async function login(){
+
+  const email =
+    document.getElementById("loginEmail").value.trim();
+
+  const password =
+    document.getElementById("loginPassword").value;
+
+
+  const response = await fetch(
+    "/api/login",
+    {
+      method:"POST",
+
+      headers:{
+        "Content-Type":"application/json"
+      },
+
+      body:JSON.stringify({
+        email,
+        password
+      })
+    }
+  );
+
+
+  const data = await response.json();
+
+
+  if(!response.ok){
+
+    alert(data.error || "Ошибка входа");
+
+    return;
+
+  }
+
+
+  closeModal();
+
+  await load();
+
+}
+
+
+/* =========================
+   REGISTER
+========================= */
+
+async function register(){
+
+  const email =
+    document.getElementById("registerEmail").value.trim();
+
+  const password =
+    document.getElementById("registerPassword").value;
+
+
+  const response = await fetch(
+    "/api/register",
+    {
+      method:"POST",
+
+      headers:{
+        "Content-Type":"application/json"
+      },
+
+      body:JSON.stringify({
+        email,
+        password
+      })
+    }
+  );
+
+
+  const data = await response.json();
+
+
+  if(!response.ok){
+
+    alert(data.error || "Ошибка регистрации");
+
+    return;
+
+  }
+
+
+  closeModal();
+
+  await load();
+
+}
+
+
+/* =========================
+   LOGOUT
+========================= */
+
+async function logout(){
+
+  await fetch(
+    "/api/logout",
+    {
+      method:"POST"
+    }
+  );
+
+  await load();
+
+}
+
+
+/* =========================
+   BUY
+========================= */
+
+function buyProgram(id){
+
+  alert(
+    "💳 Оплата PayU будет подключена следующим этапом."
+  );
+
+}
+
+
+/* =========================
+   MODAL
+========================= */
+
+function closeModal(){
+
+  modal.style.display = "none";
+
+}
+
+
+/* =========================
+   LOAD ALL
+========================= */
+
+async function load(){
+
+  await loadPrograms();
+
+  await loadAccount();
+
+}
+
+
+load();
+
+</script>
+
+</body>
+</html>
