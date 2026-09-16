@@ -50,6 +50,14 @@ async function initDatabase() {
   console.log("Инициализация базы данных...");
 
   await pool.query(schema);
+  if (process.env.ADMIN_EMAIL) {
+  await pool.query(
+    "UPDATE users SET is_admin = TRUE WHERE email = $1",
+    [process.env.ADMIN_EMAIL.toLowerCase()]
+  );
+
+  console.log("Администратор проверен.");
+}
 
   // Если таблица orders уже существовала со старой схемой,
   // добавляем недостающие PayU-поля.
